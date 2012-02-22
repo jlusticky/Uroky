@@ -1,0 +1,12 @@
+Kalkulacka pro vypocet uroku.
+Josef Lusticky (C) 2012
+
+Pozadavky:
+Vyvojove soubory pro GTK-2.0 knihovnu
+sudo apt-get install libgtk2.0-dev
+
+Preklad:
+make
+
+Spusteni:
+./uroky
