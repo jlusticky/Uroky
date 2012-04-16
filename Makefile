@@ -4,7 +4,7 @@ CFLAGS=-std=c99 -pedantic -Wall -W `pkg-config --cflags gtk+-2.0` `pkg-config --
 ALLFILES=uroky.c Makefile README
 
 $(NAME): $(NAME).c
-	$(CC) $(CFLAGS) $(NAME).c -o $(NAME)
+	$(CC) $(CFLAGS) $(NAME).c -g -o $(NAME)
 
 .PHONY: clean pack
 
