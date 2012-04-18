@@ -17,27 +17,27 @@ GtkWidget * vysledek; // vysledna nasporena castka
 
 void spocitej(void)
 {
-	double scastka = strtod(gtk_entry_get_text(GTK_ENTRY(castka)), NULL);
-	double surok = strtod(gtk_entry_get_text(GTK_ENTRY(urok)), NULL);
-	double smesicnivklad = strtod(gtk_entry_get_text(GTK_ENTRY(mesicnivklad)), NULL);
-	double sprispevek = strtod(gtk_entry_get_text(GTK_ENTRY(prispevek)), NULL);
-	surok /= 12; // mesicni urok
-	surok /= 100; // na procenta
-	surok += 1; // nasobeni
-	int sroky = strtoul(gtk_entry_get_text(GTK_ENTRY(roky)), NULL, 10);
+	double dcastka = strtod(gtk_entry_get_text(GTK_ENTRY(castka)), NULL);
+	double durok = strtod(gtk_entry_get_text(GTK_ENTRY(urok)), NULL);
+	double dmesicnivklad = strtod(gtk_entry_get_text(GTK_ENTRY(mesicnivklad)), NULL);
+	double dprispevek = strtod(gtk_entry_get_text(GTK_ENTRY(prispevek)), NULL);
+	durok /= 12; // mesicni urok
+	durok /= 100; // na procenta
+	durok += 1; // nasobeni
+	int droky = strtoul(gtk_entry_get_text(GTK_ENTRY(roky)), NULL, 10);
 	
 	int i,j;
-	for (i = 0; i < sroky ; i++)
+	for (i = 0; i < droky ; i++)
 	{
 		for (j = 0; j < 12; j++)
 		{
-			scastka += smesicnivklad;
-			scastka = scastka * surok;
+			dcastka += dmesicnivklad;
+			dcastka = dcastka * durok;
 		}
-		scastka += sprispevek; // rocni prispevek
+		dcastka += dprispevek; // rocni prispevek
 	}
-	char buf[30];
-	snprintf(buf, sizeof(buf), "%f", scastka);
+	char buf[255];
+	snprintf(buf, sizeof(buf), "%f", dcastka);
 	gtk_entry_set_text(GTK_ENTRY(vysledek), buf);
 }
 
