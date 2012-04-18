@@ -3,18 +3,16 @@
 #include <stdbool.h>
 #include <gtk/gtk.h>
 
-/*
- * Josef Lusticky (C) 2012
- */
+// Josef Lusticky (C) 2012
 
 const char* progname = "Uroky";
 
-GtkWidget * castka; /* pocatecni castka na uctu */
-GtkWidget * urok; /* urok v procentech */
-GtkWidget * roky; /* pocet roku vedeni sporeni */
-GtkWidget * mesicnivklad; /* mesicni vklad na ucet */
-GtkWidget * prispevek; /* rocni prispevku */
-GtkWidget * vysledek; /* vysledna nasporena castka */
+GtkWidget * castka; // pocatecni castka na uctu
+GtkWidget * urok; // urok v procentech
+GtkWidget * roky; // pocet roku vedeni sporeni
+GtkWidget * mesicnivklad; // mesicni vklad na ucet
+GtkWidget * prispevek; // prispevek
+GtkWidget * vysledek; // vysledna nasporena castka
 
 
 void spocitej(void)
@@ -23,9 +21,9 @@ void spocitej(void)
 	double surok = strtod(gtk_entry_get_text(GTK_ENTRY(urok)), NULL);
 	double smesicnivklad = strtod(gtk_entry_get_text(GTK_ENTRY(mesicnivklad)), NULL);
 	double sprispevek = strtod(gtk_entry_get_text(GTK_ENTRY(prispevek)), NULL);
-	surok /= 12; /* mesicni urok */
-	surok /= 100; /* na procenta */
-	surok += 1; /* nasobeni */
+	surok /= 12; // mesicni urok
+	surok /= 100; // na procenta
+	surok += 1; // nasobeni
 	int sroky = strtoul(gtk_entry_get_text(GTK_ENTRY(roky)), NULL, 10);
 	
 	int i,j;
@@ -36,7 +34,7 @@ void spocitej(void)
 			scastka += smesicnivklad;
 			scastka = scastka * surok;
 		}
-		scastka += sprispevek; /* rocni prispevek */
+		scastka += sprispevek; // rocni prispevek
 	}
 	char buf[30];
 	snprintf(buf, sizeof(buf), "%f", scastka);
@@ -57,17 +55,17 @@ int main(int argc, char **argv)
 	GtkWidget * lroky = gtk_label_new("Pocet roku vedeni sporeni");
 	GtkWidget * lvysledek = gtk_label_new("Vysledna nasporena castka");
 	GtkWidget * lmesicnivklad = gtk_label_new("Mesicni vklad");
-	GtkWidget * lprispevek = gtk_label_new("Rocni prispevek");
+	GtkWidget * lprispevek = gtk_label_new("Prispevek");
 	
-	castka = gtk_entry_new(); /* soucasna castka na uctu */
-	urok = gtk_entry_new(); /* urok v procentech */
-	roky = gtk_entry_new(); /* pocet roku vedeni sporeni */
-	mesicnivklad = gtk_entry_new(); /* vyse mesicniho vkladu */
-	prispevek = gtk_entry_new(); /* vyse rocniho prispevku */
+	castka = gtk_entry_new(); // soucasna castka na uctu
+	urok = gtk_entry_new(); // urok v procentech
+	roky = gtk_entry_new(); // pocet roku vedeni sporeni
+	mesicnivklad = gtk_entry_new(); // vyse mesicniho vkladu
+	prispevek = gtk_entry_new(); // vyse prispevku
 	
 	GtkWidget * button = gtk_button_new_with_label("Spocitat");
 	
-	vysledek = gtk_entry_new(); /* zobrazi vysledek */
+	vysledek = gtk_entry_new(); // zobrazi vysledek
 	
 	
 	gtk_entry_set_text(GTK_ENTRY(castka), "10000");
@@ -78,8 +76,8 @@ int main(int argc, char **argv)
 	
 	gtk_entry_set_editable(GTK_ENTRY(vysledek), false);
 	
-	gtk_container_add(GTK_CONTAINER(vbox), lcastka); /* label do vboxu */
-	gtk_container_add(GTK_CONTAINER(vbox), castka); /* entry do vboxu */ 
+	gtk_container_add(GTK_CONTAINER(vbox), lcastka); // label do vboxu
+	gtk_container_add(GTK_CONTAINER(vbox), castka); // entry do vboxu 
 	gtk_container_add(GTK_CONTAINER(vbox), lurok);
 	gtk_container_add(GTK_CONTAINER(vbox), urok);
 	gtk_container_add(GTK_CONTAINER(vbox), lroky);
