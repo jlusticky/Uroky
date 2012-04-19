@@ -30,7 +30,6 @@ enum hmenuID
 
 void spocitej(void)
 {
-	printf("pripravuji vypocet\n");
 	int len;
 	int droky;
 	double dcastka;
@@ -78,9 +77,15 @@ void spocitej(void)
 	}
 	GetWindowText(hwndRoky, buf, len);
 	droky = strtoul(buf, NULL, 10);
-	
 
-	durok /= 12; // mesicni urok
+/*	
+	printf("dcastka %f\n", dcastka);
+	printf("durok %f\n", durok);
+	printf("dmesicnivklad %f\n", dmesicnivklad);
+	printf("dprispevek %f\n", dprispevek);
+*/
+	
+	durok /= (double) 12; // mesicni urok
 	durok /= 100; // na procenta
 	durok += 1; // nasobeni
 	

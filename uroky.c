@@ -21,10 +21,18 @@ void spocitej(void)
 	double durok = strtod(gtk_entry_get_text(GTK_ENTRY(urok)), NULL);
 	double dmesicnivklad = strtod(gtk_entry_get_text(GTK_ENTRY(mesicnivklad)), NULL);
 	double dprispevek = strtod(gtk_entry_get_text(GTK_ENTRY(prispevek)), NULL);
+	int droky = strtoul(gtk_entry_get_text(GTK_ENTRY(roky)), NULL, 10);
+	
+/*	
+	printf("dcastka %f\n", dcastka);
+	printf("durok %f\n", durok);
+	printf("dmesicnivklad %f\n", dmesicnivklad);
+	printf("dprispevek %f\n", dprispevek);
+*/
+	
 	durok /= 12; // mesicni urok
 	durok /= 100; // na procenta
 	durok += 1; // nasobeni
-	int droky = strtoul(gtk_entry_get_text(GTK_ENTRY(roky)), NULL, 10);
 	
 	int i,j;
 	for (i = 0; i < droky ; i++)
@@ -51,7 +59,7 @@ int main(int argc, char **argv)
 	GtkWidget * vbox = gtk_vbox_new (true, 0);
 	
 	GtkWidget * lcastka = gtk_label_new("Soucasna castka na uctu");
-	GtkWidget * lurok = gtk_label_new("Urok v procentech (desetinna tecka)");
+	GtkWidget * lurok = gtk_label_new("Urok v procentech (desetinna carka)");
 	GtkWidget * lroky = gtk_label_new("Pocet roku vedeni sporeni");
 	GtkWidget * lvysledek = gtk_label_new("Vysledna nasporena castka");
 	GtkWidget * lmesicnivklad = gtk_label_new("Mesicni vklad");
@@ -69,7 +77,7 @@ int main(int argc, char **argv)
 	
 	
 	gtk_entry_set_text(GTK_ENTRY(castka), "10000");
-	gtk_entry_set_text(GTK_ENTRY(urok), "1.50");
+	gtk_entry_set_text(GTK_ENTRY(urok), "1,50");
 	gtk_entry_set_text(GTK_ENTRY(roky), "5");
 	gtk_entry_set_text(GTK_ENTRY(mesicnivklad), "300");
 	gtk_entry_set_text(GTK_ENTRY(prispevek), "200");
