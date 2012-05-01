@@ -24,12 +24,13 @@ enum hmenuID
 	ID_ROKY,
 	ID_MESICNIVKLAD,
 	ID_PRISPEVEK,
+	ID_MESICNE,
 	ID_SPOCITAT,
 	ID_VYSLEDEK,
 };
 
-void spocitej(void)
-{
+void spocitej(BOOL prispevekmesicne)
+{	
 	int len;
 	int droky;
 	double dcastka;
@@ -95,9 +96,16 @@ void spocitej(void)
 		for (j = 0; j < 12; j++)
 		{
 			dcastka += dmesicnivklad;
+			if (prispevekmesicne)
+			{
+				dcastka += dprispevek;
+			}
 			dcastka = dcastka * durok;
 		}
-		dcastka += dprispevek; // rocni prispevek
+		if (!prispevekmesicne)
+		{
+			dcastka += dprispevek; // rocni prispevek
+		}
 	}
 	char buf[255];
 	snprintf(buf, sizeof(buf), "%f", dcastka);
@@ -146,14 +154,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				
 			
 			CreateWindow(TEXT("STATIC"), "Prispevek:", WS_CHILD | WS_VISIBLE | SS_LEFT,
-				10, 120, 290, 20, hwnd, (HMENU) ID_LABEL, NULL, NULL);
+				10, 120, 290-90, 20, hwnd, (HMENU) ID_LABEL, NULL, NULL);
 				
 			hwndPrispevek = CreateWindow(TEXT("Edit"), TEXT("200"), ES_NUMBER | WS_CHILD | WS_VISIBLE | WS_BORDER,
 				310, 120, 150, 20, hwnd, (HMENU) ID_PRISPEVEK, NULL, NULL);
 
-			/*CreateWindow(TEXT("button"), TEXT("Mesicne"), WS_VISIBLE | WS_CHILD | BS_CHECKBOX,
-				20, 20, 185, 35, hwnd, (HMENU) ID_MESICNE, ((LPCREATESTRUCT)lParam)->hInstance, NULL);
-			CheckDlgButton(hwnd, ID_MESICNE, BST_CHECKED);*/
+			CreateWindow(TEXT("button"), TEXT("Mesicne"), WS_VISIBLE | WS_CHILD | BS_CHECKBOX,
+				310-90, 120, 90, 20, hwnd, (HMENU) ID_MESICNE, ((LPCREATESTRUCT)lParam)->hInstance, NULL);
+			//CheckDlgButton(hwnd, ID_MESICNE, BST_CHECKED);
 			
 			CreateWindow(TEXT("button"), TEXT("Spocitat"), WS_VISIBLE | WS_CHILD,
 				310, 145, 150, 20, hwnd, (HMENU) ID_SPOCITAT, NULL, NULL);
@@ -171,19 +179,22 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		{
 			if (LOWORD(wParam) == ID_SPOCITAT)
 			{
-				spocitej();
+				BOOL prispevekmesicne = IsDlgButtonChecked(hwnd, ID_MESICNE);
+				spocitej(prispevekmesicne);
 			}
-				
-			/*BOOL checked = IsDlgButtonChecked(hwnd, 1);
-			if (checked)
+			else if (LOWORD(wParam) == ID_MESICNE)
 			{
-				CheckDlgButton(hwnd, 1, BST_UNCHECKED);
-				
+				BOOL checked = IsDlgButtonChecked(hwnd, ID_MESICNE);
+				if (checked)
+				{
+					CheckDlgButton(hwnd, ID_MESICNE, BST_UNCHECKED);
+					
+				}
+				else
+				{
+					CheckDlgButton(hwnd, ID_MESICNE, BST_CHECKED);
+				}
 			}
-			else
-			{
-				CheckDlgButton(hwnd, 1, BST_CHECKED);
-			}*/
 			break;
 		}
 		case WM_DESTROY:
