@@ -52,6 +52,11 @@ void spocitej(BOOL prispevekmesicne)
 		goto bignumber;
 	}
 	GetWindowText(hwndUrok, buf, len);
+	char *comma = strchr(buf, ',');
+	if (comma != NULL)
+	{
+		*comma = (char) '.';
+	}
 	durok = strtod(buf, NULL);
 	
 	len = GetWindowTextLength(hwndMesicnivklad) + 1;
@@ -132,7 +137,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 				310, 20, 150, 20, hwnd, (HMENU) ID_CASTKA, NULL, NULL);
 				
 				
-			CreateWindow(TEXT("STATIC"), "Urok v procentech (desetinna tecka):", WS_CHILD | WS_VISIBLE | SS_LEFT,
+			CreateWindow(TEXT("STATIC"), "Urok v procentech:", WS_CHILD | WS_VISIBLE | SS_LEFT,
 				10, 45, 290, 20, hwnd, (HMENU) ID_LABEL, NULL, NULL);
 				
 			hwndUrok = CreateWindow(TEXT("Edit"), TEXT("1.50"), WS_CHILD | WS_VISIBLE | WS_BORDER,
