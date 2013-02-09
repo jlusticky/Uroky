@@ -124,12 +124,32 @@ bignumber:
 	return;
 }
 
+void AddMenus(HWND hwnd)
+{
+	HMENU hMenubar;
+	HMENU hMenu;
+
+	hMenubar = CreateMenu();
+	hMenu = CreateMenu();
+
+	AppendMenu(hMenu, MF_STRING, IDM_FILE_NEW, "&New");
+	AppendMenu(hMenu, MF_STRING, IDM_FILE_OPEN, "&Open");
+	AppendMenu(hMenu, MF_SEPARATOR, 0, NULL);
+	AppendMenu(hMenu, MF_STRING, IDM_FILE_QUIT, "&Quit");
+
+	//AppendMenu(hMenubar, MF_POPUP, (UINT_PTR)hMenu, "&File");
+	SetMenu(hwnd, hMenubar);
+}
+
+
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch(msg)
 	{
 		case WM_CREATE:
 		{
+			AddMenus(hwnd);
+
 			CreateWindow(TEXT("STATIC"), "Soucasna castka na uctu:", WS_CHILD | WS_VISIBLE | SS_LEFT,
 				10, 20, 290, 20, hwnd, (HMENU) ID_LABEL, NULL, NULL);
 				
